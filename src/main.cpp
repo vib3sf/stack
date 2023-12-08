@@ -183,6 +183,9 @@ int main()
 			case 'P':
 				charge(tmp);
 				break;
+			case 'S':
+				clear();
+				main();
 			case 'q':
 				goto exit;
 		}
