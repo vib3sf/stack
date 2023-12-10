@@ -1,39 +1,32 @@
 #ifndef LIST_QUEUE_H
 #define LIST_QUEUE_H
 
-template <class>
-class ArrayStack;
-
 #include "stack.h"
 #include <stdlib.h>
 #include <iostream>
 
-template <class T>
-struct Node
-{
-	T data;
-	Node *next;
-
-	Node(T data);
-};
-
-template <class T>
-Node<T>::Node(T data) : data(data), next(0)
-{  }
 
 template <class T>
 class ListStack : public Stack<T>
 {
 	private:
-		Node<T> *first;
+		struct Node
+		{
+			T data;
+			Node *next;
+
+		Node(T data) : data(data), next(0)
+		{  }
+
+		};
+		Node *first;
 		virtual void Print(std::ostream& os) const;
-		void RecursivePrint(const Node<T> *node) const;
+		void RecursivePrint(const Node *node) const;
 		virtual ListStack<T> *Clone() const;
 
 	public:
 		ListStack();
 		ListStack(const ListStack& l);
-		ListStack(ArrayStack<T> a);
 		~ListStack();
 
 		virtual void Push(T elem);
@@ -49,18 +42,18 @@ template <class T>
 ListStack<T>::ListStack(const ListStack& l) :
 	Stack<T>(l), first(l.first ? new Node(l.first->data) : 0)
 {
-	Node<T> *tmp = first;
+	Node *tmp = first;
 
 	if(first)
-		for(Node<T> *node = l.first->next; node; node = node->next, tmp = tmp->next)
-			tmp->next = new Node<T>(node->data);
+		for(Node *node = l.first->next; node; node = node->next, tmp = tmp->next)
+			tmp->next = new Node(node->data);
 }
 
 template <class T>
 ListStack<T>::~ListStack<T>()
 {
-	Node<T> *next;
-	for(Node<T> *node = first; node; node = next)
+	Node *next;
+	for(Node *node = first; node; node = next)
 	{
 		next = node->next;
 		delete node;
@@ -70,7 +63,7 @@ ListStack<T>::~ListStack<T>()
 template <class T>
 void ListStack<T>::Push(T elem)
 {
-	Node<T> *node = new Node<T>(elem);
+	Node *node = new Node(elem);
 	if(!first)
 		first = node;
 	else 
@@ -94,7 +87,7 @@ T ListStack<T>::Pop()
 	if(this->IsEmpty())
 		throw "ListStack is empty.\n";
 
-	Node<T> *tmp = first;
+	Node *tmp = first;
 	T data_tmp = tmp->data;
 
 	first = first->next;
@@ -111,7 +104,7 @@ void ListStack<T>::Print(std::ostream& os) const
 }
 
 template<class T>
-void ListStack<T>::RecursivePrint(const Node<T> *node) const
+void ListStack<T>::RecursivePrint(const Node *node) const
 {
 	if(node)
 		RecursivePrint(node->next);

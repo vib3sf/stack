@@ -94,7 +94,6 @@ void charge(TempData &tmp)
 
 void display_action(const TempData& tmp) 
 {
-
 	mvprintw(7, 0, "Length: %d", tmp.stack.Len());
 	mvprintw(8, 0, "Last pop: %s", tmp.last_pop.c_str());
 	if(tmp.begin != std::chrono::system_clock::from_time_t(0))
