@@ -5,6 +5,13 @@
 #include "list_stack.h"
 #include "stack.h"
 
+const char* instruction[]{
+	"To add an element, enter a positive number.",
+	"To remove an element, press 'd'.",
+	"To clean, press 'c'.",
+	"To reverse, press 'r'.",
+	"To quit, press 'q'.",
+};
 
 inline std::chrono::system_clock::time_point get_time()
 {
@@ -98,11 +105,8 @@ void display_action(const TempData& tmp)
 
 void display_instruction()
 {
-	mvprintw(0, 0, "To add an element, enter a positive number.");
-	mvprintw(1, 0, "To remove an element, press 'd'.");
-	mvprintw(2, 0, "To clean, press 'c'.");
-	mvprintw(3, 0, "To reverse, press 'r'.");
-	mvprintw(4, 0, "To quit, press 'q'.");
+	for(int i = 0; i < 5; i++)
+		mvprintw(i, 0, "%s", instruction[i]);
 }
 
 void display_stack(const TempData& tmp)
