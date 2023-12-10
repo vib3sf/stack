@@ -87,9 +87,11 @@ void charge(TempData &tmp)
 
 void display_action(const TempData& tmp) 
 {
-	mvprintw(6, 0, "Last pop: %s", tmp.last_pop.c_str());
+
+	mvprintw(7, 0, "Length: %d", tmp.stack.Len());
+	mvprintw(8, 0, "Last pop: %s", tmp.last_pop.c_str());
 	if(tmp.begin != std::chrono::system_clock::from_time_t(0))
-		mvprintw(7, 0, "Time: %ld ms", std::chrono::duration_cast
+		mvprintw(9, 0, "Time: %ld ms", std::chrono::duration_cast
 			<std::chrono::microseconds>(get_time() - tmp.begin).count());
 	mvprintw(LINES - 1, 0, "%s", tmp.err_msg.c_str());
 }
@@ -111,7 +113,7 @@ void display_stack(const TempData& tmp)
     box(win, 0, 0);
 	wrefresh(win);
 	
-    int yPos = LINES - tmp.stack.Size() - 2; 
+    int yPos = LINES - tmp.stack.Len() - 2; 
     while (!tmp_stack.IsEmpty()) {
 		std::string element = tmp_stack.Pop();
         int startX = (COLS - element.length()) / 2;

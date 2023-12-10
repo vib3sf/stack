@@ -22,7 +22,7 @@ class Stack
 		Stack(const Stack& q);
 		virtual ~Stack() {}
 
-		inline int Size() const;
+		inline int Len() const;
 		inline bool IsEmpty() const;
 		void Charge(T elem, int count);
 		void Clear();
@@ -46,7 +46,7 @@ Stack<T>::Stack(int len) : len(len)
 {  }
 
 template <typename T>
-inline int Stack<T>::Size() const
+inline int Stack<T>::Len() const
 {
 	return len;
 }
